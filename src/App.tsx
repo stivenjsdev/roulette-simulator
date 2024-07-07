@@ -63,7 +63,7 @@ function App() {
         type: "ADD_MONEY",
         payload: {
           money: {
-            number: +valueMoney.money,
+            money: +valueMoney.money,
             moneyWin: +valueMoney.moneyWin,
             moneyLose: +valueMoney.moneyLose,
           },

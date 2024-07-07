@@ -3,7 +3,7 @@ export type GameActions = {
   payload: {
     patronNumber?: number;
     gameNumber?: number;
-    money?: { number: number; moneyWin: number; moneyLose: number };
+    money?: { money: number; moneyWin: number; moneyLose: number };
   };
 };
 
