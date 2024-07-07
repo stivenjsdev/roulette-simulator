@@ -1,6 +1,12 @@
 import { useReducer, useState } from "react";
 import { gameReducer, initialState } from "./reducers/gameReducer";
 
+const InitialMoneyState = {
+  money: "",
+  moneyWin: "",
+  moneyLose: "",
+}
+
 function App() {
   const [state, dispatch] = useReducer(gameReducer, initialState);
 
@@ -8,45 +14,45 @@ function App() {
   const [valueWinning, setValueWinning] = useState("");
 
   // state money form
-  const [valueMoney, setValueMoney] = useState({
-    money: "",
-    moneyWin: "",
-    moneyLose: "",
-  });
+  const [valueMoney, setValueMoney] = useState(InitialMoneyState);
 
-  const handleTableNumber = (
+  function handleTableNumber(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  ) {
     const tableNumber = parseInt(e.currentTarget.innerText);
     dispatch({
       type: "ADD_NUMBER_TO_PATRON",
-      payload: tableNumber,
+      payload: {
+        patronNumber: tableNumber,
+      },
     });
-  };
+  }
 
-  const handleWinningChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handleWinningChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValueWinning(e.target.value);
-  };
+  }
 
-  const handleWinningSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  function handleWinningSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (+valueWinning > 0 && +valueWinning <= 36) {
       dispatch({
         type: "PLAY_NUMBER",
-        payload: +valueWinning,
+        payload: {
+          gameNumber: +valueWinning,
+        },
       });
     }
     setValueWinning("");
-  };
+  }
 
-  const handleMoneyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handleMoneyChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValueMoney({
       ...valueMoney,
       [e.target.id]: e.target.value,
     });
-  };
+  }
 
-  const handleMoneySubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  function handleMoneySubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (
       +valueMoney.money > 0 &&
@@ -56,14 +62,16 @@ function App() {
       dispatch({
         type: "ADD_MONEY",
         payload: {
-          money: +valueMoney.money,
-          moneyWin: +valueMoney.moneyWin,
-          moneyLose: +valueMoney.moneyLose,
+          money: {
+            number: +valueMoney.money,
+            moneyWin: +valueMoney.moneyWin,
+            moneyLose: +valueMoney.moneyLose,
+          },
         },
       });
     }
-    setValueMoney({ money: "", moneyWin: "", moneyLose: "" });
-  };
+    setValueMoney(InitialMoneyState);
+  }
 
   return (
     <>

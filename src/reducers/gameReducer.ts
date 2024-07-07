@@ -1,7 +1,10 @@
 export type GameActions = {
   type: "ADD_NUMBER_TO_PATRON" | "PLAY_NUMBER" | "ADD_MONEY";
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  payload: any;
+  payload: {
+    patronNumber?: number;
+    gameNumber?: number;
+    money?: { number: number; moneyWin: number; moneyLose: number };
+  };
 };
 
 type GameState = {
@@ -22,30 +25,29 @@ export const initialState: GameState = {
 
 export const gameReducer = (state: GameState, action: GameActions) => {
   if (action.type === "ADD_NUMBER_TO_PATRON") {
+    const { patronNumber } = action.payload;
     if (
-      action.payload !== 0 &&
-      !state.patron.includes(action.payload as number)
+      patronNumber &&
+      patronNumber !== 0 &&
+      !state.patron.includes(patronNumber)
     ) {
       return {
         ...state,
-        patron: [...state.patron, action.payload],
+        patron: [...state.patron, patronNumber],
       };
     }
   }
 
   if (action.type === "PLAY_NUMBER") {
-    const tag = state.patron.includes(action.payload as number)
-      ? "win"
-      : "lose";
-    const gameNumber = { number: action.payload, tag };
+    const { gameNumber } = action.payload;
+    if (!gameNumber) return state;
+    const tag = state.patron.includes(gameNumber) ? "win" : "lose";
     return {
       ...state,
-      gameNumbers: [...state.gameNumbers, gameNumber],
+      gameNumbers: [...state.gameNumbers, { number: gameNumber, tag }],
       money:
         tag === "win"
-          ? action.payload === 32 ||
-            action.payload === 26 ||
-            action.payload === 23
+          ? gameNumber === 32 || gameNumber === 26 || gameNumber === 23
             ? state.money + 500 * 18 - 3500
             : state.money + state.moneyWin
           : state.money - state.moneyLose,
@@ -53,10 +55,9 @@ export const gameReducer = (state: GameState, action: GameActions) => {
   }
 
   if (action.type === "ADD_MONEY") {
-    console.log("action");
     return {
       ...state,
-      ...action.payload,
+      ...action.payload.money,
     };
   }
 
