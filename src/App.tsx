@@ -137,7 +137,7 @@ function App() {
           <div className="showWinningNumber">
             <ul className="winningNumberContainer">
               {state.gameNumbers.map((item, index) => (
-                <li key={index} className="winningNumber">
+                <li key={index} className={`winningNumber ${item.tag === 'win' && 'green'}`}>
                   <p>{item.number}</p>
                   <p>{item.tag}</p>
                 </li>
