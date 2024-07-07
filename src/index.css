@@ -52,6 +52,22 @@ select {
 
 /* end reset css */
 
+* {
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.header{
+  background-image: linear-gradient(to bottom, black, red);
+  color: #fff;
+  padding: 15px 5px;
+}
+
+.header h1 {
+  font-weight: 900;
+}
+
 .main {
   max-width: 600px;
   margin: 10px auto;
@@ -63,16 +79,37 @@ select {
 .tableNumber {
   font-size: 1.5rem;
   font-weight: bold;
-  width: 48px;
+  width: 55px;
   text-align: center;
-  height: 48px;
+  height: 55px;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+.tableNumber:hover {
+  opacity: 0.5;
+}
+
+.red {
+  background-color: red;
+}
+
+.black {
+  background-color: black;
+}
+
+.colorRed {
+  color: red;
 }
 
 .tableSection {
   /* margin: 0 auto; */
-  /* display: flex;
+  display: flex;
   flex-direction: column;
-  align-items: center; */
+  align-items: center;
+  gap: 10px;
 }
 
 hr {
@@ -86,16 +123,20 @@ hr {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 10px 0;
+  gap: 10px 5px;
 }
 
-.winningNumber,
-.winningNumberTag {
+.winningTitleDisabled {
+  opacity: 0.3;
+}
+
+.winningNumber {
   font-size: 1.2rem;
   font-weight: bold;
   width: 50px;
   text-align: center;
-  /* height: 20px; */
+  padding: 5px;
+  border: 1px solid lightgray;
 }
 
 .winningSection {
@@ -117,6 +158,9 @@ hr {
   border-radius: 5px;
   padding: 5px;
 }
+.winningNumberInput:disabled {
+  opacity: 0.3;
+}
 
 .winningNumberButton {
   border: 1px solid #000;
@@ -125,10 +169,26 @@ hr {
   cursor: pointer;
   background-color: rgb(240, 240, 240);
 }
+.winningNumberButton:disabled {
+  opacity: 0.4;
+}
 
 .winningNumberButton:hover {
   background-color: rgb(200, 200, 200);
   outline: none;
+}
+
+.moneySection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.moneyNumber {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
 }
 
 .moneyForm {
@@ -172,4 +232,7 @@ hr {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  padding: 10px;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
 }

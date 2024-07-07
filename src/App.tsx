@@ -1,4 +1,5 @@
 import { useReducer, useState } from "react";
+import { formatCurrency } from './helpers/index';
 import { gameReducer, initialState } from "./reducers/gameReducer";
 
 const InitialMoneyState = {
@@ -75,16 +76,16 @@ function App() {
 
   return (
     <>
-      <header>
+      <header className="header">
         <h1>Roulette Simulator</h1>
       </header>
 
       <main className="main">
         <div className="moneySection">
           <h2>Money</h2>
-          <p>Money: ${state.money}</p>
-          <p>Money win: +${state.moneyWin}</p>
-          <p>Money lose: -${state.moneyLose}</p>
+          <p className={`moneyNumber ${state.money < 0 && 'colorRed'}`}>{formatCurrency(state.money)} COP</p>
+          <p>Money win: + {formatCurrency(state.moneyWin)}</p>
+          <p>Money lose: - {formatCurrency(state.moneyLose)}</p>
 
           <form className="moneyForm" onSubmit={handleMoneySubmit}>
             <input
@@ -116,7 +117,7 @@ function App() {
         </div>
 
         <div className="winningSection">
-          <h2>Winning Numbers</h2>
+          <h2 className={`winningTitle ${state.patron.length === 0 && 'winningTitleDisabled'}`}>Winning Numbers</h2>
           <form className="winningForm" onSubmit={handleWinningSubmit}>
             <input
               className="winningNumberInput"
@@ -146,44 +147,45 @@ function App() {
         </div>
 
         <div className="tableSection">
+          <h2>Roulette</h2>
           <div>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               1
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               2
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               3
             </button>
             <br />
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               4
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               5
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               6
             </button>
             <br />
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               7
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               8
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               9
             </button>
             <br />
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               10
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               11
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               12
             </button>
           </div>
@@ -191,43 +193,43 @@ function App() {
           <hr />
 
           <div>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               13
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               14
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               15
             </button>
             <br />
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               16
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               17
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               18
             </button>
             <br />
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               19
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               20
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               21
             </button>
             <br />
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber  black" onClick={handleTableNumber}>
               22
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               23
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               24
             </button>
           </div>
@@ -235,43 +237,43 @@ function App() {
           <hr />
 
           <div>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               25
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               26
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               27
             </button>
             <br />
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               28
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               29
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               30
             </button>
             <br />
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               31
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               32
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               33
             </button>
             <br />
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               34
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber black" onClick={handleTableNumber}>
               35
             </button>
-            <button className="tableNumber" onClick={handleTableNumber}>
+            <button className="tableNumber red" onClick={handleTableNumber}>
               36
             </button>
           </div>
