@@ -106,6 +106,7 @@ select {
 
 .colorRed {
   color: red;
+  font-weight: bold;
 }
 
 .tableSection {
