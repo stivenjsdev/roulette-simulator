@@ -1,12 +1,10 @@
 import { useReducer, useState } from "react";
-import { formatCurrency } from './helpers/index';
+import { formatCurrency } from "./helpers/index";
 import { gameReducer, initialState } from "./reducers/gameReducer";
 
 const InitialMoneyState = {
   money: "",
-  moneyWin: "",
-  moneyLose: "",
-}
+};
 
 function App() {
   const [state, dispatch] = useReducer(gameReducer, initialState);
@@ -17,6 +15,9 @@ function App() {
   // state money form
   const [valueMoney, setValueMoney] = useState(InitialMoneyState);
 
+  // state chips form
+  const [valueChips, setValueChips] = useState("500");
+
   function handleTableNumber(
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) {
@@ -24,7 +25,7 @@ function App() {
     dispatch({
       type: "ADD_NUMBER_TO_PATRON",
       payload: {
-        patronNumber: tableNumber,
+        patronNumber: { number: tableNumber, chip: +valueChips },
       },
     });
   }
@@ -35,7 +36,7 @@ function App() {
 
   function handleWinningSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (+valueWinning > 0 && +valueWinning <= 36) {
+    if (+valueWinning >= 0 && +valueWinning <= 36) {
       dispatch({
         type: "PLAY_NUMBER",
         payload: {
@@ -55,23 +56,20 @@ function App() {
 
   function handleMoneySubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (
-      +valueMoney.money > 0 &&
-      +valueMoney.moneyWin > 0 &&
-      +valueMoney.moneyLose > 0
-    ) {
+    if (+valueMoney.money > 0) {
       dispatch({
         type: "ADD_MONEY",
         payload: {
-          money: {
-            money: +valueMoney.money,
-            moneyWin: +valueMoney.moneyWin,
-            moneyLose: +valueMoney.moneyLose,
-          },
+          money: +valueMoney.money,
         },
       });
     }
     setValueMoney(InitialMoneyState);
+  }
+
+  function handleChipsChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setValueChips(e.target.value);
+    console.log(e.target.value);
   }
 
   return (
@@ -83,9 +81,9 @@ function App() {
       <main className="main">
         <div className="moneySection">
           <h2>Money</h2>
-          <p className={`moneyNumber ${state.money < 0 && 'colorRed'}`}>{formatCurrency(state.money)} COP</p>
-          <p>Money win: + {formatCurrency(state.moneyWin)}</p>
-          <p>Money lose: - {formatCurrency(state.moneyLose)}</p>
+          <p className={`moneyNumber ${state.money < 0 && "colorRed"}`}>
+            {formatCurrency(state.money)} COP
+          </p>
 
           <form className="moneyForm" onSubmit={handleMoneySubmit}>
             <input
@@ -96,28 +94,18 @@ function App() {
               onChange={handleMoneyChange}
               value={valueMoney.money}
             />
-            <input
-              id="moneyWin"
-              className="moneyWinInput"
-              type="number"
-              placeholder="type the amount when win"
-              onChange={handleMoneyChange}
-              value={valueMoney.moneyWin}
-            />
-            <input
-              id="moneyLose"
-              className="moneyLoseInput"
-              type="number"
-              placeholder="type the amount when lose"
-              onChange={handleMoneyChange}
-              value={valueMoney.moneyLose}
-            />
             <button className="moneyButton">bet</button>
           </form>
         </div>
 
         <div className="winningSection">
-          <h2 className={`winningTitle ${state.patron.length === 0 && 'winningTitleDisabled'}`}>Winning Numbers</h2>
+          <h2
+            className={`winningTitle ${
+              state.patron.length === 0 && "winningTitleDisabled"
+            }`}
+          >
+            Winning Numbers
+          </h2>
           <form className="winningForm" onSubmit={handleWinningSubmit}>
             <input
               className="winningNumberInput"
@@ -137,10 +125,17 @@ function App() {
           <div className="showWinningNumber">
             <ul className="winningNumberContainer">
               {state.gameNumbers.map((item, index) => (
-                <li key={index} className={`winningNumber ${item.tag === 'win' && 'green'} ${item.color === 'red' && 'colorRed'}`}>
+                <li
+                  key={index}
+                  className={`winningNumber ${item.tag === "win" && "green"} ${
+                    item.color === "red" && "colorRed"
+                  }`}
+                >
                   <p>{item.number}</p>
                   <p>{item.tag}</p>
-                  <p className="winningNumberLeftPosition">{item.leftPosition}</p>
+                  <p className="winningNumberLeftPosition">
+                    {item.leftPosition}
+                  </p>
                 </li>
               ))}
             </ul>
@@ -149,6 +144,56 @@ function App() {
 
         <div className="tableSection">
           <h2>Roulette</h2>
+          <div className="chipsContainer">
+            <form className="chipsForm">
+              <fieldset className="chipsRadioList">
+                <input
+                  type="radio"
+                  id="500"
+                  name="chips"
+                  value="500"
+                  checked={valueChips === "500"}
+                  onChange={handleChipsChange}
+                />
+                <label htmlFor="500">500</label>
+
+                <input
+                  type="radio"
+                  id="1000"
+                  name="chips"
+                  value="1000"
+                  checked={valueChips === "1000"}
+                  onChange={handleChipsChange}
+                />
+                <label htmlFor="1000">1000</label>
+
+                <input
+                  type="radio"
+                  id="2500"
+                  name="chips"
+                  value="2500"
+                  checked={valueChips === "2500"}
+                  onChange={handleChipsChange}
+                />
+                <label htmlFor="2500">2500</label>
+
+                <input
+                  type="radio"
+                  id="5000"
+                  name="chips"
+                  value="5000"
+                  checked={valueChips === "5000"}
+                  onChange={handleChipsChange}
+                />
+                <label htmlFor="5000">5000</label>
+              </fieldset>
+
+              {/* <input type="submit" value="Send" /> */}
+            </form>
+
+            <p>Total chips played: {state.patron.length}</p>
+          </div>
+
           <div>
             <button className="tableNumber red" onClick={handleTableNumber}>
               1

@@ -1,29 +1,25 @@
 import { rouletteNumbers } from "../data/roulette";
-import { RouletteNumber } from "../types";
+import { PatronNumber, RouletteNumber } from "../types";
 
 export type GameActions = {
   type: "ADD_NUMBER_TO_PATRON" | "PLAY_NUMBER" | "ADD_MONEY";
   payload: {
-    patronNumber?: number;
+    patronNumber?: PatronNumber;
     gameNumber?: number;
-    money?: { money: number; moneyWin: number; moneyLose: number };
+    money?: number;
   };
 };
 
 type GameState = {
-  patron: number[];
+  patron: PatronNumber[];
   gameNumbers: Array<RouletteNumber>;
   money: number;
-  moneyWin: number;
-  moneyLose: number;
 };
 
 export const initialState: GameState = {
   patron: [],
   gameNumbers: [],
   money: 0,
-  moneyWin: 0,
-  moneyLose: 0,
 };
 
 export const gameReducer = (state: GameState, action: GameActions) => {
@@ -31,8 +27,8 @@ export const gameReducer = (state: GameState, action: GameActions) => {
     const { patronNumber } = action.payload;
     if (
       patronNumber &&
-      patronNumber !== 0 &&
-      !state.patron.includes(patronNumber)
+      patronNumber.number !== 0 &&
+      !state.patron.some((item) => item.number === patronNumber.number)
     ) {
       return {
         ...state,
@@ -43,33 +39,43 @@ export const gameReducer = (state: GameState, action: GameActions) => {
 
   if (action.type === "PLAY_NUMBER") {
     const { gameNumber } = action.payload;
-    if (!gameNumber) return state;
-    const tag = state.patron.includes(gameNumber) ? "win" : "lose";
+    if (typeof gameNumber === "undefined") return state;
+    const totalSpend = state.patron.reduce((acc, item) => acc + item.chip, 0);
+    if (totalSpend > state.money) {
+      alert("No tienes suficiente dinero para jugar");
+      return state;
+    }
+    const patronNumber = state.patron.find(
+      (item) => item.number === gameNumber
+    );
+    const tag = patronNumber ? "win" : "lose";
     const newGameNumber: RouletteNumber = {
       number: gameNumber,
       tag,
       color: rouletteNumbers[gameNumber].color,
       leftPosition: rouletteNumbers[gameNumber].leftPosition,
     };
+
+    console.log(totalSpend);
+    console.log(state.money);
+    if (patronNumber) console.log(patronNumber!.chip * 35);
+    console.log(totalSpend - state.money);
+
     return {
       ...state,
-      gameNumbers: [
-        ...state.gameNumbers,
-        newGameNumber,
-      ],
+      gameNumbers: [...state.gameNumbers, newGameNumber],
       money:
-        tag === "win"
-          ? gameNumber === 32 || gameNumber === 26 || gameNumber === 23
-            ? state.money + 500 * 18 - 3500
-            : state.money + state.moneyWin
-          : state.money - state.moneyLose,
+        tag === "win" && patronNumber
+          ? state.money + patronNumber.chip * 35
+          : state.money - totalSpend,
     };
   }
 
   if (action.type === "ADD_MONEY") {
+    if (!action.payload.money) return state;
     return {
       ...state,
-      ...action.payload.money,
+      money: state.money + action.payload.money,
     };
   }
 
