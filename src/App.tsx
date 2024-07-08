@@ -1,19 +1,12 @@
 import { useReducer, useState } from "react";
-import { formatCurrency } from "./helpers/index";
+import Balance from "./components/Balance";
 import { gameReducer, initialState } from "./reducers/gameReducer";
-
-const InitialMoneyState = {
-  money: "",
-};
 
 function App() {
   const [state, dispatch] = useReducer(gameReducer, initialState);
 
   // state winning numbers form
   const [valueWinning, setValueWinning] = useState("");
-
-  // state money form
-  const [valueMoney, setValueMoney] = useState(InitialMoneyState);
 
   // state chips form
   const [valueChips, setValueChips] = useState("500");
@@ -47,26 +40,6 @@ function App() {
     setValueWinning("");
   }
 
-  function handleMoneyChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setValueMoney({
-      ...valueMoney,
-      [e.target.id]: e.target.value,
-    });
-  }
-
-  function handleMoneySubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (+valueMoney.money > 0) {
-      dispatch({
-        type: "ADD_MONEY",
-        payload: {
-          money: +valueMoney.money,
-        },
-      });
-    }
-    setValueMoney(InitialMoneyState);
-  }
-
   function handleChipsChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValueChips(e.target.value);
     console.log(e.target.value);
@@ -79,24 +52,7 @@ function App() {
       </header>
 
       <main className="main">
-        <div className="moneySection">
-          <h2>Money</h2>
-          <p className={`moneyNumber ${state.money < 0 && "colorRed"}`}>
-            {formatCurrency(state.money)} COP
-          </p>
-
-          <form className="moneyForm" onSubmit={handleMoneySubmit}>
-            <input
-              id="money"
-              className="moneyInput"
-              type="number"
-              placeholder="type the amount to bet"
-              onChange={handleMoneyChange}
-              value={valueMoney.money}
-            />
-            <button className="moneyButton">bet</button>
-          </form>
-        </div>
+        <Balance state={state} dispatch={dispatch} />
 
         <div className="winningSection">
           <h2
