@@ -1,4 +1,4 @@
-import { rouletteNumbers } from "../data/roulette";
+import { chips, rouletteNumbers } from "../data/roulette";
 import { useRoulette } from "../hooks/useRoulette";
 import { GameActions, GameState } from "../reducers/gameReducer";
 
@@ -16,45 +16,19 @@ const RouletteTable = ({ state, dispatch }: RouletteTableProps) => {
       <div className="chipsContainer">
         <form className="chipsForm">
           <fieldset className="chipsRadioList">
-            <input
-              type="radio"
-              id="500"
-              name="chips"
-              value="500"
-              checked={chipsValue === "500"}
-              onChange={handleChipsChange}
-            />
-            <label htmlFor="500">500</label>
-
-            <input
-              type="radio"
-              id="1000"
-              name="chips"
-              value="1000"
-              checked={chipsValue === "1000"}
-              onChange={handleChipsChange}
-            />
-            <label htmlFor="1000">1000</label>
-
-            <input
-              type="radio"
-              id="2500"
-              name="chips"
-              value="2500"
-              checked={chipsValue === "2500"}
-              onChange={handleChipsChange}
-            />
-            <label htmlFor="2500">2500</label>
-
-            <input
-              type="radio"
-              id="5000"
-              name="chips"
-              value="5000"
-              checked={chipsValue === "5000"}
-              onChange={handleChipsChange}
-            />
-            <label htmlFor="5000">5000</label>
+            {chips.map((chip, index) => (
+              <div key={index} className="chipRadio">
+                <input
+                  type="radio"
+                  id={chip}
+                  name="chips"
+                  value={chip}
+                  checked={chipsValue === chip}
+                  onChange={handleChipsChange}
+                />
+                <label htmlFor={chip}>{chip}</label>
+              </div>
+            ))}
           </fieldset>
         </form>
 

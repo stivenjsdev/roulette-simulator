@@ -275,3 +275,9 @@ hr {
   gap: 10px;
   align-items: center;
 }
+
+.chipRadio {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+}

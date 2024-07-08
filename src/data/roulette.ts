@@ -46,3 +46,5 @@ export const rouletteNumbers: {
   36: { color: "red", leftPosition: "bottom" },
 };
 // console.log(rouletteNumbers);
+
+export const chips = ["500", "1000", "2500", "5000"];
