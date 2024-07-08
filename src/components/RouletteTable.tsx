@@ -38,7 +38,9 @@ const RouletteTable = ({ state, dispatch }: RouletteTableProps) => {
         <button
           className="clearRouletteTableButton"
           onClick={() => handleClearChips(dispatch)}
-        >clean the table</button>
+        >
+          clean the table
+        </button>
       </div>
 
       <div className="rouletteTable">
@@ -47,7 +49,9 @@ const RouletteTable = ({ state, dispatch }: RouletteTableProps) => {
           return (
             <button
               key={key}
-              className={`tableNumber ${value.color}`}
+              className={`tableNumber ${value.color} ${
+                state.patron.some((i) => i.number === +key) && "gold-border"
+              }`}
               onClick={(e) => handleTableNumber(e, dispatch)}
             >
               {key}
