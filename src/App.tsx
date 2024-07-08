@@ -1,12 +1,12 @@
 import { useReducer, useState } from "react";
 import Balance from "./components/Balance";
+import WinningNumbers from "./components/WinningNumbers";
 import { gameReducer, initialState } from "./reducers/gameReducer";
 
 function App() {
   const [state, dispatch] = useReducer(gameReducer, initialState);
 
-  // state winning numbers form
-  const [valueWinning, setValueWinning] = useState("");
+  
 
   // state chips form
   const [valueChips, setValueChips] = useState("500");
@@ -23,23 +23,6 @@ function App() {
     });
   }
 
-  function handleWinningChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setValueWinning(e.target.value);
-  }
-
-  function handleWinningSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (+valueWinning >= 0 && +valueWinning <= 36) {
-      dispatch({
-        type: "PLAY_NUMBER",
-        payload: {
-          gameNumber: +valueWinning,
-        },
-      });
-    }
-    setValueWinning("");
-  }
-
   function handleChipsChange(e: React.ChangeEvent<HTMLInputElement>) {
     setValueChips(e.target.value);
     console.log(e.target.value);
@@ -54,49 +37,7 @@ function App() {
       <main className="main">
         <Balance state={state} dispatch={dispatch} />
 
-        <div className="winningSection">
-          <h2
-            className={`winningTitle ${
-              state.patron.length === 0 && "winningTitleDisabled"
-            }`}
-          >
-            Winning Numbers
-          </h2>
-          <form className="winningForm" onSubmit={handleWinningSubmit}>
-            <input
-              className="winningNumberInput"
-              type="number"
-              placeholder="type the winning number"
-              value={valueWinning}
-              onChange={handleWinningChange}
-              disabled={state.patron.length === 0}
-            />
-            <button
-              className="winningNumberButton"
-              disabled={state.patron.length === 0}
-            >
-              add
-            </button>
-          </form>
-          <div className="showWinningNumber">
-            <ul className="winningNumberContainer">
-              {state.gameNumbers.map((item, index) => (
-                <li
-                  key={index}
-                  className={`winningNumber ${item.tag === "win" && "green"} ${
-                    item.color === "red" && "colorRed"
-                  }`}
-                >
-                  <p>{item.number}</p>
-                  <p>{item.tag}</p>
-                  <p className="winningNumberLeftPosition">
-                    {item.leftPosition}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <WinningNumbers state={state} dispatch={dispatch} />
 
         <div className="tableSection">
           <h2>Roulette</h2>
