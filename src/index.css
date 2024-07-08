@@ -92,6 +92,11 @@ select {
   opacity: 0.5;
 }
 
+.tableNumber:active {
+  transform: scale(0.8);
+}
+
+
 .red {
   background-color: red;
 }
