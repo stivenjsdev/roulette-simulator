@@ -2,7 +2,7 @@ import { rouletteNumbers } from "../data/roulette";
 import { PatronNumber, RouletteNumber } from "../types";
 
 export type GameActions = {
-  type: "ADD_NUMBER_TO_PATRON" | "PLAY_NUMBER" | "ADD_MONEY" | "RESET_MONEY";
+  type: "ADD_NUMBER_TO_PATRON" | "PLAY_NUMBER" | "ADD_MONEY" | "RESET_MONEY" | "CLEAR_PATRON";
   payload?: {
     patronNumber?: PatronNumber;
     gameNumber?: number;
@@ -36,6 +36,13 @@ export const gameReducer = (state: GameState, action: GameActions) => {
         patron: [...state.patron, patronNumber],
       };
     }
+  }
+
+  if (action.type === "CLEAR_PATRON") {
+    return {
+      ...state,
+      patron: [],
+    };
   }
 
   if (action.type === "PLAY_NUMBER") {

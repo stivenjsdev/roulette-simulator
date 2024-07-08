@@ -58,7 +58,7 @@ select {
   font-style: normal;
 }
 
-.header{
+.header {
   background-image: linear-gradient(to bottom, black, red);
   color: #fff;
   padding: 15px 5px;
@@ -106,7 +106,6 @@ select {
 .tableNumber:nth-child(12n) {
   margin-bottom: 5px;
 }
-
 
 .red {
   background-color: red;
@@ -280,4 +279,12 @@ hr {
   display: flex;
   flex-direction: row;
   gap: 4px;
+}
+
+.clearRouletteTableButton {
+  border: 1px solid #000;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  background-color: rgb(240, 240, 240);
 }

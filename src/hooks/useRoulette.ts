@@ -22,5 +22,9 @@ export function useRoulette() {
     console.log(e.target.value);
   }
 
-  return { chipsValue, handleTableNumber, handleChipsChange };
+  function handleClearChips(dispatch: React.Dispatch<GameActions>) {
+    dispatch({ type: "CLEAR_PATRON" });
+  }
+
+  return { chipsValue, handleTableNumber, handleChipsChange, handleClearChips };
 }

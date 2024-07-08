@@ -8,7 +8,8 @@ type RouletteTableProps = {
 };
 
 const RouletteTable = ({ state, dispatch }: RouletteTableProps) => {
-  const { chipsValue, handleTableNumber, handleChipsChange } = useRoulette();
+  const { chipsValue, handleTableNumber, handleChipsChange, handleClearChips } =
+    useRoulette();
 
   return (
     <div className="tableSection">
@@ -33,6 +34,11 @@ const RouletteTable = ({ state, dispatch }: RouletteTableProps) => {
         </form>
 
         <p>Total chips played: {state.patron.length}</p>
+
+        <button
+          className="clearRouletteTableButton"
+          onClick={() => handleClearChips(dispatch)}
+        >clean the table</button>
       </div>
 
       <div className="rouletteTable">
