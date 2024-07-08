@@ -1,3 +1,4 @@
+import { rouletteNumbers } from "../data/roulette";
 import { useRoulette } from "../hooks/useRoulette";
 import { GameActions, GameState } from "../reducers/gameReducer";
 
@@ -55,249 +56,24 @@ const RouletteTable = ({ state, dispatch }: RouletteTableProps) => {
             />
             <label htmlFor="5000">5000</label>
           </fieldset>
-
-          {/* <input type="submit" value="Send" /> */}
         </form>
 
         <p>Total chips played: {state.patron.length}</p>
       </div>
 
-      <div>
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          1
-        </button>
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          2
-        </button>
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          3
-        </button>
-        <br />
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          4
-        </button>
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          5
-        </button>
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          6
-        </button>
-        <br />
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          7
-        </button>
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          8
-        </button>
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          9
-        </button>
-        <br />
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          10
-        </button>
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          11
-        </button>
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          12
-        </button>
-      </div>
-
-      <hr />
-
-      <div>
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          13
-        </button>
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          14
-        </button>
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          15
-        </button>
-        <br />
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          16
-        </button>
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          17
-        </button>
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          18
-        </button>
-        <br />
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          19
-        </button>
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          20
-        </button>
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          21
-        </button>
-        <br />
-        <button
-          className="tableNumber  black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          22
-        </button>
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          23
-        </button>
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          24
-        </button>
-      </div>
-
-      <hr />
-
-      <div>
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          25
-        </button>
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          26
-        </button>
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          27
-        </button>
-        <br />
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          28
-        </button>
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          29
-        </button>
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          30
-        </button>
-        <br />
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          31
-        </button>
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          32
-        </button>
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          33
-        </button>
-        <br />
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          34
-        </button>
-        <button
-          className="tableNumber black"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          35
-        </button>
-        <button
-          className="tableNumber red"
-          onClick={(e) => handleTableNumber(e, dispatch)}
-        >
-          36
-        </button>
+      <div className="rouletteTable">
+        {Object.entries(rouletteNumbers).map(([key, value]) => {
+          if (key === "0" || key === "00") return null;
+          return (
+            <button
+              key={key}
+              className={`tableNumber ${value.color}`}
+              onClick={(e) => handleTableNumber(e, dispatch)}
+            >
+              {key}
+            </button>
+          );
+        })}
       </div>
     </div>
   );
