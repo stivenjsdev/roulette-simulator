@@ -140,6 +140,7 @@ function App() {
                 <li key={index} className={`winningNumber ${item.tag === 'win' && 'green'} ${item.color === 'red' && 'colorRed'}`}>
                   <p>{item.number}</p>
                   <p>{item.tag}</p>
+                  <p className="winningNumberLeftPosition">{item.leftPosition}</p>
                 </li>
               ))}
             </ul>

@@ -144,6 +144,10 @@ hr {
   border: 1px solid lightgray;
 }
 
+.winningNumberLeftPosition {
+  font-size: 0.7rem;
+}
+
 .winningSection {
   display: flex;
   flex-direction: column;
