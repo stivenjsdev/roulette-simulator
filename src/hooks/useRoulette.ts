@@ -12,7 +12,7 @@ export function useRoulette() {
     dispatch({
       type: "ADD_NUMBER_TO_PATRON",
       payload: {
-        patronNumber: { number: tableNumber, chip: +chipsValue },
+        patternNumber: { number: tableNumber, chip: +chipsValue },
       },
     });
   }

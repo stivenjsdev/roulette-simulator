@@ -6,4 +6,4 @@ export type RouletteNumber = {
   count: number;
 };
 
-export type PatronNumber = { number: number; chip: number };
+export type PatternNumber = { number: number; chip: number };

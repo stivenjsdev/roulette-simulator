@@ -18,7 +18,7 @@ const WinningNumbers = ({ state, dispatch }: WinningNumbersProps) => {
     <div className="winningSection">
       <h2
         className={`winningTitle ${
-          state.patron.length === 0 && "winningTitleDisabled"
+          state.pattern.length === 0 && "winningTitleDisabled"
         }`}
       >
         Winning Numbers
@@ -33,11 +33,11 @@ const WinningNumbers = ({ state, dispatch }: WinningNumbersProps) => {
           placeholder="type the winning number"
           value={winningNumberValue}
           onChange={handleWinningNumberChange}
-          disabled={state.patron.length === 0}
+          disabled={state.pattern.length === 0}
         />
         <button
           className="winningNumberButton"
-          disabled={state.patron.length === 0}
+          disabled={state.pattern.length === 0}
         >
           add
         </button>

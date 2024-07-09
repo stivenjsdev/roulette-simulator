@@ -1,6 +1,6 @@
 import { rouletteNumbers } from "../data/roulette";
 import { generateRandomNumber } from "../helpers";
-import { PatronNumber, RouletteNumber } from "../types";
+import { PatternNumber, RouletteNumber } from "../types";
 
 export type GameActions = {
   type:
@@ -11,38 +11,38 @@ export type GameActions = {
     | "ADD_MONEY"
     | "RESET_MONEY";
   payload?: {
-    patronNumber?: PatronNumber;
+    patternNumber?: PatternNumber;
     gameNumber?: number;
     money?: number;
   };
 };
 
 export type GameState = {
-  patron: PatronNumber[];
+  pattern: PatternNumber[];
   gameNumbers: Array<RouletteNumber>;
   money: number;
 };
 
 export const initialState: GameState = {
-  patron: [],
+  pattern: [],
   gameNumbers: [],
   money: 0,
 };
 
 export const gameReducer = (state: GameState, action: GameActions) => {
   if (action.type === "ADD_NUMBER_TO_PATRON") {
-    if (!action.payload || !action.payload.patronNumber) return state;
+    if (!action.payload || !action.payload.patternNumber) return state;
 
-    const { patronNumber } = action.payload;
+    const { patternNumber } = action.payload;
 
-    const patronNumberExist = state.patron.some(
-      (item) => item.number === patronNumber.number
+    const patternNumberExist = state.pattern.some(
+      (item) => item.number === patternNumber.number
     );
 
-    return !patronNumberExist
+    return !patternNumberExist
       ? {
           ...state,
-          patron: [...state.patron, patronNumber],
+          pattern: [...state.pattern, patternNumber],
         }
       : state;
   }
@@ -50,7 +50,7 @@ export const gameReducer = (state: GameState, action: GameActions) => {
   if (action.type === "CLEAR_PATRON") {
     return {
       ...state,
-      patron: [],
+      pattern: [],
     };
   }
 
@@ -59,8 +59,8 @@ export const gameReducer = (state: GameState, action: GameActions) => {
       return state;
 
     const { gameNumber: number } = action.payload;
-    const totalSpend = state.patron.reduce((acc, item) => acc + item.chip, 0);
-    const patternNumber = state.patron.find((i) => i.number === number);
+    const totalSpend = state.pattern.reduce((acc, item) => acc + item.chip, 0);
+    const patternNumber = state.pattern.find((i) => i.number === number);
     const tag = patternNumber ? "win" : "lose";
     const count =
       state.gameNumbers.filter((i) => i.number === number).length + 1;
@@ -95,8 +95,8 @@ export const gameReducer = (state: GameState, action: GameActions) => {
 
   if (action.type === "PLAY_NUMBER_GENERATED") {
     const number = generateRandomNumber(0, 36);
-    const totalSpend = state.patron.reduce((acc, item) => acc + item.chip, 0);
-    const patternNumber = state.patron.find((i) => i.number === number);
+    const totalSpend = state.pattern.reduce((acc, item) => acc + item.chip, 0);
+    const patternNumber = state.pattern.find((i) => i.number === number);
     const tag = patternNumber ? "win" : "lose";
     const count =
       state.gameNumbers.filter((i) => i.number === number).length + 1;

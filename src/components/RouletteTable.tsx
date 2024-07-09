@@ -33,7 +33,7 @@ const RouletteTable = ({ state, dispatch }: RouletteTableProps) => {
           </fieldset>
         </form>
 
-        <p>Total chips played: {state.patron.length}</p>
+        <p>Total chips played: {state.pattern.length}</p>
 
         <button
           className="clearRouletteTableButton"
@@ -50,7 +50,7 @@ const RouletteTable = ({ state, dispatch }: RouletteTableProps) => {
             <button
               key={key}
               className={`tableNumber ${value.color} ${
-                state.patron.some((i) => i.number === +key) && "gold-border"
+                state.pattern.some((i) => i.number === +key) && "gold-border"
               }`}
               onClick={(e) => handleTableNumber(e, dispatch)}
             >
