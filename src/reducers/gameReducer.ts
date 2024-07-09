@@ -2,20 +2,13 @@ import { rouletteNumbers } from "../data/roulette";
 import { generateRandomNumber } from "../helpers";
 import { PatternNumber, RouletteNumber } from "../types";
 
-export type GameActions = {
-  type:
-    | "ADD_NUMBER_TO_PATRON"
-    | "CLEAR_PATRON"
-    | "PLAY_NUMBER"
-    | "PLAY_NUMBER_GENERATED"
-    | "ADD_MONEY"
-    | "RESET_MONEY";
-  payload?: {
-    patternNumber?: PatternNumber;
-    gameNumber?: number;
-    money?: number;
-  };
-};
+export type GameActions =
+  { type: "ADD_NUMBER_TO_PATRON", payload: {patternNumber: PatternNumber} } |
+  { type: "CLEAR_PATTERN" } |
+  { type: "PLAY_NUMBER", payload: {gameNumber: number} } |
+  { type: "PLAY_NUMBER_GENERATED" } |
+  { type: "ADD_MONEY", payload: {money: number} } |
+  { type: "RESET_MONEY" };
 
 export type GameState = {
   pattern: PatternNumber[];
@@ -31,8 +24,6 @@ export const initialState: GameState = {
 
 export const gameReducer = (state: GameState, action: GameActions) => {
   if (action.type === "ADD_NUMBER_TO_PATRON") {
-    if (!action.payload || !action.payload.patternNumber) return state;
-
     const { patternNumber } = action.payload;
 
     const patternNumberExist = state.pattern.some(
@@ -47,7 +38,7 @@ export const gameReducer = (state: GameState, action: GameActions) => {
       : state;
   }
 
-  if (action.type === "CLEAR_PATRON") {
+  if (action.type === "CLEAR_PATTERN") {
     return {
       ...state,
       pattern: [],
@@ -55,9 +46,6 @@ export const gameReducer = (state: GameState, action: GameActions) => {
   }
 
   if (action.type === "PLAY_NUMBER") {
-    if (!action.payload || typeof action.payload.gameNumber === "undefined")
-      return state;
-
     const { gameNumber: number } = action.payload;
     const totalSpend = state.pattern.reduce((acc, item) => acc + item.chip, 0);
     const patternNumber = state.pattern.find((i) => i.number === number);
@@ -125,7 +113,6 @@ export const gameReducer = (state: GameState, action: GameActions) => {
   }
 
   if (action.type === "ADD_MONEY") {
-    if (!action.payload || !action.payload.money) return state;
     return {
       ...state,
       money: state.money + action.payload.money,

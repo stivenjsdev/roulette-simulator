@@ -61,7 +61,9 @@ const WinningNumbers = ({ state, dispatch }: WinningNumbersProps) => {
             >
               <p>{item.number}</p>
               <p>{item.tag}</p>
-              <p className="winningNumberCount">{item.count}</p>
+              {item.count !== 1 && (
+                <p className="winningNumberCount">{item.count}</p>
+              )}
               <p className="winningNumberLeftPosition">{item.leftPosition}</p>
             </li>
           ))}
