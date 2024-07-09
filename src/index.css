@@ -157,6 +157,14 @@ hr {
   text-align: center;
   padding: 5px;
   border: 1px solid lightgray;
+  position: relative;
+}
+
+.winningNumberCount {
+  font-size: 0.6rem;
+  position: absolute;
+  top: 0px;
+  right: 2px;
 }
 
 .winningNumberLeftPosition {
