@@ -27,9 +27,16 @@ export function useWinningNumbers() {
     setWinningNumberValue("");
   }
 
+  function handleGenerateWinningNumber(dispatch: React.Dispatch<GameActions>) {
+    dispatch({
+      type: "PLAY_NUMBER_GENERATED",
+    });
+  }
+
   return {
     winningNumberValue,
     handleWinningNumberChange,
     handleWinningNumberSubmit,
+    handleGenerateWinningNumber,
   };
 }

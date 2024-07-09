@@ -11,6 +11,7 @@ const WinningNumbers = ({ state, dispatch }: WinningNumbersProps) => {
     winningNumberValue,
     handleWinningNumberChange,
     handleWinningNumberSubmit,
+    handleGenerateWinningNumber,
   } = useWinningNumbers();
 
   return (
@@ -41,6 +42,14 @@ const WinningNumbers = ({ state, dispatch }: WinningNumbersProps) => {
           add
         </button>
       </form>
+
+      <button
+        className="generateWinningNumberButton"
+        onClick={() => handleGenerateWinningNumber(dispatch)}
+      >
+        generate
+      </button>
+
       <div className="showWinningNumber">
         <ul className="winningNumberContainer">
           {state.gameNumbers.map((item, index) => (
