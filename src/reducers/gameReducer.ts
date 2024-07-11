@@ -3,12 +3,12 @@ import { generateRandomNumber } from "../helpers";
 import { PatternNumber, RouletteNumber } from "../types";
 
 export type GameActions =
-  { type: "ADD_NUMBER_TO_PATRON", payload: {patternNumber: PatternNumber} } |
-  { type: "CLEAR_PATTERN" } |
-  { type: "PLAY_NUMBER", payload: {gameNumber: number} } |
-  { type: "PLAY_NUMBER_GENERATED" } |
-  { type: "ADD_MONEY", payload: {money: number} } |
-  { type: "RESET_MONEY" };
+  | { type: "ADD_NUMBER_TO_PATRON"; payload: { patternNumber: PatternNumber } }
+  | { type: "CLEAR_PATTERN" }
+  | { type: "PLAY_NUMBER"; payload: { gameNumber: number } }
+  | { type: "PLAY_NUMBER_GENERATED" }
+  | { type: "ADD_MONEY"; payload: { money: number } }
+  | { type: "RESET_MONEY" };
 
 export type GameState = {
   pattern: PatternNumber[];
@@ -53,6 +53,7 @@ export const gameReducer = (state: GameState, action: GameActions) => {
     const count =
       state.gameNumbers.filter((i) => i.number === number).length + 1;
 
+    // todo: remove this second return
     if (totalSpend > state.money) {
       alert("You don't have enough money to play");
       return state;
@@ -76,7 +77,7 @@ export const gameReducer = (state: GameState, action: GameActions) => {
       gameNumbers: [...state.gameNumbers, newGameNumber],
       money:
         tag === "win" && patternNumber
-          ? state.money + patternNumber.chip * 35
+          ? state.money - totalSpend + patternNumber.chip * 35
           : state.money - totalSpend,
     };
   }
@@ -89,6 +90,7 @@ export const gameReducer = (state: GameState, action: GameActions) => {
     const count =
       state.gameNumbers.filter((i) => i.number === number).length + 1;
 
+    // todo: remove this second return
     if (totalSpend > state.money) {
       alert("You don't have enough money to play");
       return state;
