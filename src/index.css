@@ -67,6 +67,12 @@ select {
 
 .header h1 {
   font-weight: 900;
+  text-align: center;
+}
+
+.headerContainer {
+  max-width: 600px;
+  margin: auto
 }
 
 .main {

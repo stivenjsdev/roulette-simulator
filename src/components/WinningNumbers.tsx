@@ -1,12 +1,9 @@
+import { useGame } from "../hooks/useGame";
 import { useWinningNumbers } from "../hooks/useWinningNumbers";
-import { GameActions, GameState } from "../reducers/gameReducer";
 
-type WinningNumbersProps = {
-  state: GameState;
-  dispatch: React.Dispatch<GameActions>;
-};
+const WinningNumbers = () => {
+  const { state, dispatch } = useGame();
 
-const WinningNumbers = ({ state, dispatch }: WinningNumbersProps) => {
   const {
     winningNumberValue,
     handleWinningNumberChange,

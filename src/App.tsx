@@ -1,24 +1,22 @@
-import { useReducer } from "react";
 import Balance from "./components/Balance";
 import RouletteTable from "./components/RouletteTable";
 import WinningNumbers from "./components/WinningNumbers";
-import { gameReducer, initialState } from "./reducers/gameReducer";
 
 function App() {
-  const [state, dispatch] = useReducer(gameReducer, initialState);
-
   return (
     <>
       <header className="header">
-        <h1>Roulette Simulator</h1>
+        <div className="headerContainer">
+          <h1>Roulette Simulator</h1>
+        </div>
       </header>
 
       <main className="main">
-        <Balance state={state} dispatch={dispatch} />
+        <Balance />
 
-        <WinningNumbers state={state} dispatch={dispatch} />
+        <WinningNumbers />
 
-        <RouletteTable state={state} dispatch={dispatch} />
+        <RouletteTable />
       </main>
     </>
   );

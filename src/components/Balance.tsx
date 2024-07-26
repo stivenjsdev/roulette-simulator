@@ -1,13 +1,10 @@
 import { formatCurrency } from "../helpers";
 import { useBalance } from "../hooks/useBalance";
-import { GameActions, GameState } from "../reducers/gameReducer";
+import { useGame } from "../hooks/useGame";
 
-type BalanceProps = {
-  state: GameState;
-  dispatch: React.Dispatch<GameActions>;
-};
+const Balance = () => {
+  const { state, dispatch } = useGame();
 
-const Balance = ({ state, dispatch }: BalanceProps) => {
   const {
     balance,
     handleBalanceChange,

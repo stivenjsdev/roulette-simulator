@@ -1,13 +1,9 @@
 import { chips, rouletteNumbers } from "../data/roulette";
+import { useGame } from "../hooks/useGame";
 import { useRoulette } from "../hooks/useRoulette";
-import { GameActions, GameState } from "../reducers/gameReducer";
 
-type RouletteTableProps = {
-  state: GameState;
-  dispatch: React.Dispatch<GameActions>;
-};
-
-const RouletteTable = ({ state, dispatch }: RouletteTableProps) => {
+const RouletteTable = () => {
+  const { state, dispatch } = useGame();
   const { chipsValue, handleTableNumber, handleChipsChange, handleClearChips } =
     useRoulette();
 
