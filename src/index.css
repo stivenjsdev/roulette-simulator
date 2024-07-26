@@ -58,6 +58,10 @@ select {
   font-style: normal;
 }
 
+body {
+  background-color: green;
+}
+
 .header {
   background-image: linear-gradient(to bottom, black, red);
   color: #fff;
@@ -67,17 +71,34 @@ select {
 
 .header h1 {
   font-weight: 900;
-  text-align: center;
+  /* text-align: center; */
 }
 
 .headerContainer {
   max-width: 600px;
-  margin: auto
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link, .activeLink {
+  color: white;
+  padding: 5px 10px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.activeLink {
+  color: gold;
+  font-weight: bold;
 }
 
 .main {
   max-width: 600px;
-  margin: 10px auto;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 10px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,23 +132,6 @@ select {
 
 .tableNumber:nth-child(12n) {
   margin-bottom: 5px;
-}
-
-.red {
-  background-color: red;
-}
-
-.black {
-  background-color: black;
-}
-
-.green {
-  background-color: lightgreen;
-}
-
-.colorRed {
-  color: red;
-  font-weight: bold;
 }
 
 .tableSection {
@@ -164,6 +168,7 @@ hr {
   padding: 5px;
   border: 1px solid lightgray;
   position: relative;
+  background-color: #fff;
 }
 
 .winningNumberCount {
@@ -234,6 +239,10 @@ hr {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  border: 1px lightgray solid;
+  border-radius: 10px;
+  padding: 20px 12px;
+  background-color: #fff;
 }
 
 .moneyNumber {
@@ -286,6 +295,7 @@ hr {
   padding: 10px;
   border-top: 1px solid lightgray;
   border-bottom: 1px solid lightgray;
+  background-color: #fff;
 }
 
 .chipsRadioList {
@@ -300,6 +310,10 @@ hr {
   flex-direction: column;
   gap: 10px;
   align-items: center;
+  border: 1px lightgray solid;
+  padding: 20px 10px;
+  border-radius: 10px;
+  background-color: #fff;
 }
 
 .chipRadio {
@@ -318,4 +332,24 @@ hr {
 
 .gold-border {
   border: 3px solid gold;
+}
+
+.red {
+  background-color: red;
+}
+
+.black {
+  background-color: black;
+}
+
+.green {
+  background-color: lightgreen;
+}
+.green p {
+  font-weight: 400;
+}
+
+.colorRed {
+  color: red;
+  font-weight: bold;
 }

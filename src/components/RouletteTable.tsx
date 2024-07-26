@@ -9,8 +9,8 @@ const RouletteTable = () => {
 
   return (
     <div className="tableSection">
-      <h2>Roulette</h2>
       <div className="chipsContainer">
+        <h2>Roulette Chip</h2>
         <form className="chipsForm">
           <fieldset className="chipsRadioList">
             {chips.map((chip, index) => (
