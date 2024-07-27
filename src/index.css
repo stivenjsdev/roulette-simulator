@@ -161,6 +161,10 @@ hr {
   gap: 10px 5px;
 }
 
+.winningTitle {
+  text-align: center;
+}
+
 .winningTitleDisabled {
   opacity: 0.3;
 }

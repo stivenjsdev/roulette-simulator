@@ -14,20 +14,22 @@ const WinningNumbers = () => {
 
   return (
     <div className="winningSection">
-      <h2
-        className={`winningTitle ${
-          state.pattern.length === 0 && "winningTitleDisabled"
-        }`}
-      >
-        Winning Numbers
-      </h2>
-      <h2
-        className={`winningTitle ${
-          state.pattern.length === 0 && "winningTitleDisabled"
-        }`}
-      >
-        {formatCurrency(state.money)}
-      </h2>
+      <div className="winningFormContainer">
+        <h2
+          className={`winningTitle ${
+            state.pattern.length === 0 && "winningTitleDisabled"
+          }`}
+        >
+          Winning Numbers
+        </h2>
+        <h2
+          className={`winningTitle ${
+            state.pattern.length === 0 && "winningTitleDisabled"
+          }`}
+        >
+          {formatCurrency(state.money)}
+        </h2>
+      </div>
       <div className="winningFormContainer">
         <form
           className="winningForm"
