@@ -1,3 +1,4 @@
+import { formatCurrency } from "../helpers/index";
 import { useGame } from "../hooks/useGame";
 import { useWinningNumbers } from "../hooks/useWinningNumbers";
 
@@ -20,25 +21,34 @@ const WinningNumbers = () => {
       >
         Winning Numbers
       </h2>
-      <form
-        className="winningForm"
-        onSubmit={(e) => handleWinningNumberSubmit(e, dispatch)}
+      <h2
+        className={`winningTitle ${
+          state.pattern.length === 0 && "winningTitleDisabled"
+        }`}
       >
-        <input
-          className="winningNumberInput"
-          type="number"
-          placeholder="type the winning number"
-          value={winningNumberValue}
-          onChange={handleWinningNumberChange}
-          disabled={state.pattern.length === 0}
-        />
-        <button
-          className="winningNumberButton"
-          disabled={state.pattern.length === 0}
+        {formatCurrency(state.money)}
+      </h2>
+      <div className="winningFormContainer">
+        <form
+          className="winningForm"
+          onSubmit={(e) => handleWinningNumberSubmit(e, dispatch)}
         >
-          add
-        </button>
-      </form>
+          <input
+            className="winningNumberInput"
+            type="number"
+            placeholder="type the winning number"
+            value={winningNumberValue}
+            onChange={handleWinningNumberChange}
+            disabled={state.pattern.length === 0}
+          />
+          <button
+            className="winningNumberButton"
+            disabled={state.pattern.length === 0}
+          >
+            add
+          </button>
+        </form>
+      </div>
 
       <button
         className="generateWinningNumberButton"
@@ -47,25 +57,27 @@ const WinningNumbers = () => {
         generate
       </button>
 
-      <div className="showWinningNumber">
-        <ul className="winningNumberContainer">
-          {state.gameNumbers.map((item, index) => (
-            <li
-              key={index}
-              className={`winningNumber ${item.tag === "win" && "green"} ${
-                item.color === "red" && "colorRed"
-              }`}
-            >
-              <p>{item.number}</p>
-              <p>{item.tag}</p>
-              {item.count !== 1 && (
-                <p className="winningNumberCount">{item.count}</p>
-              )}
-              <p className="winningNumberLeftPosition">{item.leftPosition}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {state.gameNumbers.length > 0 && (
+        <div className="showWinningNumber">
+          <ul className="winningNumberContainer">
+            {state.gameNumbers.map((item, index) => (
+              <li
+                key={index}
+                className={`winningNumber ${item.tag === "win" && "green"} ${
+                  item.color === "red" && "colorRed"
+                }`}
+              >
+                <p>{item.number}</p>
+                <p>{item.tag}</p>
+                {item.count !== 1 && (
+                  <p className="winningNumberCount">{item.count}</p>
+                )}
+                <p className="winningNumberLeftPosition">{item.leftPosition}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
